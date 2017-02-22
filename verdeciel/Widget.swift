@@ -79,7 +79,7 @@ class Widget : Panel
 	
 	var installNode:Empty = Empty()
 	var installProgressBar = SCNProgressBar(width: 1)
-	var installLabel = SCNLabel(text:"install", scale:0.075, color:grey, align:.center)
+	var installLabel = SCNLabel(text:"install", scale:0.075, align:.center, color:grey)
 	
 	override func onInstallationBegin()
 	{
@@ -116,7 +116,7 @@ class Widget : Panel
 		installNode.hide()
 		
 		SCNTransaction.begin()
-		SCNTransaction.setAnimationDuration(0.7)
+		SCNTransaction.animationDuration = 0.7
 		root.show()
 		SCNTransaction.commit()
 		

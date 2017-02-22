@@ -105,7 +105,7 @@ class PanelBattery : MainPanel
 		installThruster()
 	}
 	
-	func contains(item:Item) -> Bool
+	func contains(_ item:Item) -> Bool
 	{
 		if cellPort1.event != nil && cellPort1.event == item { return true }
 		if cellPort2.event != nil && cellPort2.event == item { return true }
@@ -198,7 +198,7 @@ class PanelBattery : MainPanel
 		if radioPort.isReceivingItemOfType(.battery) == true { radio.onPowered() } else { radio.onUnpowered() }
 	}
 	
-	func hasCell(target:Event) -> Bool
+	func hasCell(_ target:Event) -> Bool
 	{
 		if cellPort1.event != nil && cellPort1.event == target { return true }
 		if cellPort2.event != nil && cellPort2.event == target { return true }

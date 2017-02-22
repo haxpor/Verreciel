@@ -10,29 +10,29 @@ import Foundation
 class CoreGame
 {
 	var time:Float = 0
-	let memory = NSUserDefaults.standardUserDefaults()
+	let memory = UserDefaults.standard
 	
 	init()
 	{
 		print("^ Game | Init")
-		NSTimer.scheduledTimerWithTimeInterval(0.05, target: self, selector: #selector(self.onTic), userInfo: nil, repeats: true)
-		NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: #selector(self.whenSecond), userInfo: nil, repeats: true)
+		Timer.scheduledTimer(timeInterval: 0.05, target: self, selector: #selector(self.onTic), userInfo: nil, repeats: true)
+		Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.whenSecond), userInfo: nil, repeats: true)
 	}
 	
 	func whenStart()
 	{
 		print("+ Game | Start")
-		load(memory.integerForKey("state"))
+		load(memory.integer(forKey: "state"))
 	}
 	
-	func save(id:Int)
+	func save(_ id:Int)
 	{
 		print("@ GAME     | Saved State to \(id)")
 		memory.setValue(id, forKey: "state")
 		memory.setValue(version, forKey: "version")
 	}
 	
-	func load(id:Int)
+	func load(_ id:Int)
 	{
 		let id = (id == 20) ? 0 : id
 		
@@ -48,15 +48,15 @@ class CoreGame
 	
 	func state() -> Int
 	{
-		return memory.integerForKey("state")
+		return memory.integer(forKey: "state")
 	}
 	
 	func erase()
 	{
 		print("$ GAME     | Erase")
 		
-		let appDomain = NSBundle.mainBundle().bundleIdentifier!
-		NSUserDefaults.standardUserDefaults().removePersistentDomainForName(appDomain)
+		let appDomain = Bundle.main.bundleIdentifier!
+		UserDefaults.standard.removePersistentDomain(forName: appDomain)
 	}
 	
     var needsSecond = false

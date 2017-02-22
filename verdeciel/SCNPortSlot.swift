@@ -28,10 +28,10 @@ class SCNPortSlot : SCNPort
 		trigger.position = SCNVector3(0,0,-0.1)
 		self.addChildNode(trigger)
 		
-		label = SCNLabel(text:placeholder,scale:0.1,color:grey,align:align)
+		label = SCNLabel(text:placeholder,scale:0.1,align:align,color:grey)
 		self.addChildNode(label)
 		
-		detailsLabel = SCNLabel(text:"",scale:0.075,color:grey,align:align)
+		detailsLabel = SCNLabel(text:"",scale:0.075,align:align,color:grey)
 		self.addChildNode(detailsLabel)
 		
 		self.host = host
@@ -102,7 +102,7 @@ class SCNPortSlot : SCNPort
 		host.onDisconnect()
 	}
 	
-	override func addEvent(event:Event)
+	override func addEvent(_ event:Event)
 	{
 		super.addEvent(event)
 		refresh()
@@ -111,13 +111,13 @@ class SCNPortSlot : SCNPort
 	// MARK: Upload -
 	
 	var upload:Event!
-	var uploadTimer:NSTimer!
+	var uploadTimer:Timer!
 	var uploadPercentage:Float = 0
 	
-	func upload(item:Item)
+	func upload(_ item:Item)
 	{
 		upload = item
-		uploadTimer = NSTimer.scheduledTimerWithTimeInterval(0.05, target: self, selector: #selector(self.uploadProgress), userInfo: nil, repeats: true)
+		uploadTimer = Timer.scheduledTimer(timeInterval: 0.05, target: self, selector: #selector(self.uploadProgress), userInfo: nil, repeats: true)
 	}
 	
 	func uploadProgress()
@@ -136,7 +136,7 @@ class SCNPortSlot : SCNPort
 		}
 	}
 	
-	func enable(text:String,color:UIColor! = nil)
+	func enable(_ text:String,color:UIColor! = nil)
 	{
 		super.enable()
 		
@@ -144,7 +144,7 @@ class SCNPortSlot : SCNPort
 		if color != nil { label.update(text,color:color) }
 	}
 	
-	func disable(text:String,color:UIColor! = nil)
+	func disable(_ text:String,color:UIColor! = nil)
 	{
 		super.disable()
 		

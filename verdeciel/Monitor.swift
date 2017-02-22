@@ -58,10 +58,10 @@ class Monitor : Panel
 		super.onInstallationComplete()
 		
 		SCNTransaction.begin()
-		SCNTransaction.setAnimationDuration(0.5)
+		SCNTransaction.animationDuration = 0.5
 		nameLabel.show()
 		detailsLabel.show()
-		SCNTransaction.setCompletionBlock({ self.refresh() })
+		SCNTransaction.completionBlock = { self.refresh() }
 		SCNTransaction.commit()
 		
 		installNode.removeFromParentNode()

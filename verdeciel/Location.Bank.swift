@@ -64,7 +64,7 @@ class LocationBank : Location
 		return newPanel
 	}
 	
-	func addItems(items:Array<Item>)
+	func addItems(_ items:Array<Item>)
 	{
 		for item in items {
 			if port1.hasItem() == false { port1.addEvent(item) }
@@ -76,7 +76,7 @@ class LocationBank : Location
 		}
 	}
 	
-	func contains(item:Item) -> Bool
+	func contains(_ item:Item) -> Bool
 	{
 		if port1.event != nil && port1.event == item { return true }
 		if port2.event != nil && port2.event == item { return true }
@@ -92,7 +92,7 @@ class LocationBank : Location
 		super.onDock()
 		
 		SCNTransaction.begin()
-		SCNTransaction.setAnimationDuration(0.5)
+		SCNTransaction.animationDuration = 0.5
 		
 		structure.hide()
 		
@@ -102,7 +102,7 @@ class LocationBank : Location
 			i += 1
 		}
 		
-		SCNTransaction.setCompletionBlock({ })
+		SCNTransaction.completionBlock = { }
 		SCNTransaction.commit()
 		
 		refresh()
@@ -113,7 +113,7 @@ class LocationBank : Location
 		super.onUndock()
 		
 		SCNTransaction.begin()
-		SCNTransaction.setAnimationDuration(0.5)
+		SCNTransaction.animationDuration = 0.5
 		
 		structure.show()
 		
@@ -123,7 +123,7 @@ class LocationBank : Location
 			i += 1
 		}
 		
-		SCNTransaction.setCompletionBlock({ })
+		SCNTransaction.completionBlock = { }
 		SCNTransaction.commit()
 		
 		refresh()

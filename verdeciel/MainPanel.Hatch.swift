@@ -51,7 +51,7 @@ class PanelHatch : MainPanel
 		update()
 	}
 
-	override func touch(id:Int = 0)
+	override func touch(_ id:Int = 0)
 	{
 		if port.isReceiving() == false { return }
 		if port.origin.event.isQuest == true { return }

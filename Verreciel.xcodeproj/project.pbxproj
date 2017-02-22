@@ -523,7 +523,8 @@
 				TargetAttributes = {
 					03DDE17919CE497F008029A8 = {
 						CreatedOnToolsVersion = 6.0.1;
-						DevelopmentTeam = B948MFAE5C;
+						DevelopmentTeam = XGKHW634KL;
+						LastSwiftMigration = 0820;
 					};
 				};
 			};
@@ -768,11 +769,13 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = XGKHW634KL;
 				INFOPLIST_FILE = verdeciel/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.xxiivv.verre;
 				PRODUCT_NAME = Verreciel;
 				PROVISIONING_PROFILE = "";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -784,11 +787,13 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = XGKHW634KL;
 				INFOPLIST_FILE = verdeciel/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.xxiivv.verre;
 				PRODUCT_NAME = Verreciel;
 				PROVISIONING_PROFILE = "";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

@@ -98,16 +98,16 @@ class PanelIntercom : MainPanel
 		else if capsule.dock != nil || radar.port.hasEvent() == true {
 			let target = (radar.port.hasEvent() == true ) ? radar.port.event as! Location : capsule.dock
 			
-			systemValueLabel.update("\(target.system)")
+			systemValueLabel.update("\(target?.system)")
 			distanceLabel.update("Distance")
-			distanceValueLabel.update( (capsule.isDockedAtLocation(target) ? "docked" : "\(String(format: "%.2f",target.distance * 19))") )
+			distanceValueLabel.update( (capsule.isDockedAtLocation(target!) ? "docked" : "\(String(format: "%.2f",(target?.distance)! * 19))") )
 			typeLabel.update("type")
-			typeValueLabel.update("\(target.name!)")
-			detailValueLabel.update(target.details)
+			typeValueLabel.update("\(target?.name!)")
+			detailValueLabel.update((target?.details)!)
 			
-			if target.isComplete == nil { statusValueLabel.update("--", color:white) }
-			else if target.isComplete == true { statusValueLabel.update("complete", color:cyan) }
-			else if target.isComplete == false { statusValueLabel.update("quest", color:red) }
+			if target?.isComplete == nil { statusValueLabel.update("--", color:white) }
+			else if target?.isComplete == true { statusValueLabel.update("complete", color:cyan) }
+			else if target?.isComplete == false { statusValueLabel.update("quest", color:red) }
 		}
 		else {
 			systemValueLabel.update("\(capsule.system)")
@@ -119,7 +119,7 @@ class PanelIntercom : MainPanel
 		}
 	}
 	
-	override func touch(id: Int)
+	override func touch(_ id: Int)
 	{
 		refresh()
 		audio.playSound("click3")
@@ -142,30 +142,30 @@ class PanelIntercom : MainPanel
 		// Animate
 		
 		SCNTransaction.begin()
-		SCNTransaction.setAnimationDuration(0.5)
+		SCNTransaction.animationDuration = 0.5
 		
 		locationPanel.position = SCNVector3(0,0,-0.5)
 		locationPanel.hide()
 		
-		SCNTransaction.setCompletionBlock({
+		SCNTransaction.completionBlock = {
 
 			self.defaultPanel.position = SCNVector3(0,0,-0.5)
 			
 			SCNTransaction.begin()
-			SCNTransaction.setAnimationDuration(0.5)
+			SCNTransaction.animationDuration = 0.5
 			
 			self.defaultPanel.position = SCNVector3(0,0,0)
 			self.defaultPanel.show()
 			
-			SCNTransaction.setCompletionBlock({
+			SCNTransaction.completionBlock = {
 				self.refresh()
-			})
+			}
 			SCNTransaction.commit()
-		})
+		}
 		SCNTransaction.commit()
 	}
 	
-	func connectToLocation(location:Location)
+	func connectToLocation(_ location:Location)
 	{
 		locationPanel.empty()
 		if location.panel() != nil { locationPanel.addChildNode(location.panel()) }
@@ -174,26 +174,26 @@ class PanelIntercom : MainPanel
 		// Animate
 		
 		SCNTransaction.begin()
-		SCNTransaction.setAnimationDuration(0.5)
+		SCNTransaction.animationDuration = 0.5
 		
 		defaultPanel.position = SCNVector3(0,0,-0.5)
 		defaultPanel.hide()
 		
-		SCNTransaction.setCompletionBlock({
+		SCNTransaction.completionBlock = {
 			
 			self.locationPanel.position = SCNVector3(0,0,-0.5)
 			
 			if capsule.dock != nil { self.nameLabel.update() }
 			
 			SCNTransaction.begin()
-			SCNTransaction.setAnimationDuration(0.5)
+			SCNTransaction.animationDuration = 0.5
 			
 			self.locationPanel.position = SCNVector3(0,0,0)
 			self.locationPanel.show()
 			self.refresh()
 			
 			SCNTransaction.commit()
-		})
+		}
 		SCNTransaction.commit()
 		
 		port.addEvent(location)
@@ -205,27 +205,27 @@ class PanelIntercom : MainPanel
 	func disconnectFromLocation()
 	{
 		SCNTransaction.begin()
-		SCNTransaction.setAnimationDuration(0.5)
+		SCNTransaction.animationDuration = 0.5
 		
 		locationPanel.position = SCNVector3(0,0,-0.5)
 		locationPanel.hide()
 		
-		SCNTransaction.setCompletionBlock({
+		SCNTransaction.completionBlock = {
 			
 			self.defaultPanel.position = SCNVector3(0,0,-0.5)
 			
 			SCNTransaction.begin()
-			SCNTransaction.setAnimationDuration(0.5)
+			SCNTransaction.animationDuration = 0.5
 			
 			self.defaultPanel.position = SCNVector3(0,0,0)
 			self.defaultPanel.show()
 			self.refresh()
 			
-			SCNTransaction.setCompletionBlock({
+			SCNTransaction.completionBlock = {
 				self.locationPanel.empty()
-			})
+			}
 			SCNTransaction.commit()
-		})
+		}
 		SCNTransaction.commit()
 		
 		port.removeEvent()

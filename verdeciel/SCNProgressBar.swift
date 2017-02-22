@@ -31,7 +31,7 @@ class SCNProgressBar : Empty
 		self.addChildNode(remainingLine)
 	}
 	
-	func update(percent:CGFloat)
+	func update(_ percent:CGFloat)
 	{
 		let to = width * (percent/100)
 		

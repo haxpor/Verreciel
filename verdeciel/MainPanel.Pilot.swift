@@ -47,7 +47,7 @@ class PanelPilot : MainPanel
 		detailsLabel.update("Ready", color: grey)
 	}
 	
-	override func touch(id:Int = 0)
+	override func touch(_ id:Int = 0)
 	{
 		
 	}
@@ -80,25 +80,25 @@ class PanelPilot : MainPanel
 		let target_align = abs(target.align * 0.045) < 0.01 ? target.align : target.align * 0.045
 		
 		if left <= right {
-			turnLeft(target_align)
+			turnLeft(target_align!)
 		}
 		else {
-			turnRight(target_align)
+			turnRight(target_align!)
 		}
 		
 		animate()
 	}
 	
-	func turnLeft(deg:Float)
+	func turnLeft(_ deg:Float)
 	{
 		capsule.direction = capsule.direction - deg
-		capsule.direction = capsule.direction % 360
+		capsule.direction = capsule.direction.truncatingRemainder(dividingBy: 360)
 	}
 	
-	func turnRight(deg:Float)
+	func turnRight(_ deg:Float)
 	{
 		capsule.direction = capsule.direction + deg
-		capsule.direction = capsule.direction % 360
+		capsule.direction = capsule.direction.truncatingRemainder(dividingBy: 360)
 	}
 	
 	func animate()

@@ -21,13 +21,13 @@ class CoreAudio
 	
 	var lastTimeSound:Float = 0
 	
-	func playSound(soundName:String)
+	func playSound(_ soundName:String)
 	{
 		if game.time < lastTimeSound + 5 { return }
 		
-		let coinSound = NSURL(fileURLWithPath: NSBundle.mainBundle().pathForResource(soundName, ofType: "wav")!)
+		let coinSound = URL(fileURLWithPath: Bundle.main.path(forResource: soundName, ofType: "wav")!)
 		do{
-			sound_player = try AVAudioPlayer(contentsOfURL:coinSound)
+			sound_player = try AVAudioPlayer(contentsOf:coinSound)
 			sound_player.prepareToPlay()
 			sound_player.play()
 			lastTimeSound = game.time
@@ -39,13 +39,13 @@ class CoreAudio
 	
 	var ambientTrack:String! = nil
 	
-	func playAmbience(ambientName:String)
+	func playAmbience(_ ambientName:String)
 	{
 		if ambientTrack != nil && ambientTrack == ambientName { return }
 		
-		let coinSound = NSURL(fileURLWithPath: NSBundle.mainBundle().pathForResource(ambientName, ofType: "mp3")!)
+		let coinSound = URL(fileURLWithPath: Bundle.main.path(forResource: ambientName, ofType: "mp3")!)
 		do{
-			ambience_player = try AVAudioPlayer(contentsOfURL:coinSound)
+			ambience_player = try AVAudioPlayer(contentsOf:coinSound)
 			ambience_player.prepareToPlay()
 			ambience_player.play()
 			ambience_player.numberOfLoops = -1
@@ -66,13 +66,13 @@ class CoreAudio
 	
 	var recordTrack:String! = nil
 	
-	func playRecord(recordName:String)
+	func playRecord(_ recordName:String)
 	{
 		if recordTrack != nil && recordTrack == recordName { return }
 		
-		let coinSound = NSURL(fileURLWithPath: NSBundle.mainBundle().pathForResource(recordName, ofType: "mp3")!)
+		let coinSound = URL(fileURLWithPath: Bundle.main.path(forResource: recordName, ofType: "mp3")!)
 		do{
-			record_player = try AVAudioPlayer(contentsOfURL:coinSound)
+			record_player = try AVAudioPlayer(contentsOf:coinSound)
 			record_player.prepareToPlay()
 			record_player.play()
 			record_player.numberOfLoops = -1

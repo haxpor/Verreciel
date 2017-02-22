@@ -45,7 +45,7 @@ class LocationClose : Location
 		onComplete()
 		
 		SCNTransaction.begin()
-		SCNTransaction.setAnimationDuration(30)
+		SCNTransaction.animationDuration = 30
 		
 		structure.opacity = 0
 		
@@ -104,7 +104,7 @@ class StructureClose : Structure
 		super.morph()
 		
 		SCNTransaction.begin()
-		SCNTransaction.setAnimationDuration(1.0)
+		SCNTransaction.animationDuration = 1.0
 		
 		root.eulerAngles.y = degToRad(Float(morphTime) * 45)
 		

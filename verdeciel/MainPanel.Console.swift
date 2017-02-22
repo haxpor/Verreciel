@@ -76,7 +76,7 @@ class PanelConsole : MainPanel
 		}
 	}
 	
-	func inject(payload:ConsolePayload)
+	func inject(_ payload:ConsolePayload)
 	{
 		clear()
 		
@@ -96,7 +96,7 @@ class PanelConsole : MainPanel
 		}
 		
 		SCNTransaction.begin()
-		SCNTransaction.setAnimationDuration(0.5)
+		SCNTransaction.animationDuration = 0.5
 		
 		for line in lines {
 			line.position.z = 0
@@ -166,7 +166,7 @@ class ConsoleLine : Empty
 		addChildNode(detailsLabel)
 	}
 	
-	func update(data:ConsoleData)
+	func update(_ data:ConsoleData)
 	{
 		detailsLabel.update(data.details)
 		

@@ -131,53 +131,53 @@ class CoreHelmet: Empty
 	func updatePort()
 	{
 		if player.port.origin != nil {
-			let test = convertPosition(player.port.position, toNode: player.port.origin)
+			let test = convertPosition(player.port.position, to: player.port.origin)
 			player.port.origin.wire.update(SCNVector3(0,0,0), nodeB:SCNVector3( test.x, test.y, test.z ) )
 		}
 		if player.port.connection != nil {
-			let test = convertPosition(player.port.position, fromNode: player.port.connection)
+			let test = convertPosition(player.port.position, from: player.port.connection)
 			player.port.wire.update(SCNVector3( test.x, test.y, test.z ), nodeB:SCNVector3(0,0,0) )
 		}
 	}
 	
-	func addMessage(message:String, color:UIColor = white)
+	func addMessage(_ message:String, color:UIColor = white)
 	{		
 		if self.message == message { return }
 		
 		self.message = message
 		
 		SCNTransaction.begin()
-		SCNTransaction.setAnimationDuration(0.1)
+		SCNTransaction.animationDuration = 0.1
 		messageLabel.hide()
 		messageLabel.updateColor(cyan)
-		SCNTransaction.setCompletionBlock({
+		SCNTransaction.completionBlock = {
 			SCNTransaction.begin()
-			SCNTransaction.setAnimationDuration(0.1)
+			SCNTransaction.animationDuration = 0.1
 			self.messageLabel.update(self.message, color:color)
 			self.messageLabel.show()
 			SCNTransaction.commit()
-		})
+		}
 		SCNTransaction.commit()
 	}
 	
-	func addPassive(passive:String)
+	func addPassive(_ passive:String)
 	{
 		if self.passive == passive { return }
 		
 		self.passive = passive
 		
 		SCNTransaction.begin()
-		SCNTransaction.setAnimationDuration(0.1)
+		SCNTransaction.animationDuration = 0.1
 		passiveLabel.position = SCNVector3(0,-1.2,self.visorDepth - 0.01)
 		passiveLabel.hide()
-		SCNTransaction.setCompletionBlock({
+		SCNTransaction.completionBlock = {
 			SCNTransaction.begin()
-			SCNTransaction.setAnimationDuration(0.1)
+			SCNTransaction.animationDuration = 0.1
 			self.passiveLabel.update(self.passive)
 			self.passiveLabel.position = SCNVector3(0,-1.2,self.visorDepth)
 			self.passiveLabel.show()
 			SCNTransaction.commit()
-		})
+		}
 		SCNTransaction.commit()
 	}
 	
@@ -187,7 +187,7 @@ class CoreHelmet: Empty
 	var warningFlag:String!
 	var lastWarning:Float = 0
 	
-	func addWarning(text:String!, color:UIColor = red, duration:Double, flag:String)
+	func addWarning(_ text:String!, color:UIColor = red, duration:Double, flag:String)
 	{
 		if game.time - lastWarning <= 10 { return }
 		if text == "" { return }
@@ -203,7 +203,7 @@ class CoreHelmet: Empty
 		delay(duration, block: { self.hideWarning(self.warningFlag) })
 	}
 	
-	func hideWarning(flag:String)
+	func hideWarning(_ flag:String)
 	{
 		if flag != warningFlag { return }
 		warningFlag = ""

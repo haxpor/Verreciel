@@ -9,7 +9,7 @@ import Foundation
 
 class WidgetRadio : Widget
 {
-	var time:NSTimer!
+	var time:Timer!
 	var seek:Int = 0
 	
 	override init()

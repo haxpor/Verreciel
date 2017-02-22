@@ -30,7 +30,7 @@ class PanelRadar : MainPanel
 		details = "displays locations"
 		
 		mainNode.addChildNode(eventPivot)
-		eventPivot.addChildNode(eventView)
+		eventPivot.addChildNode(eventView!)
 		
 		// Ship
 		
@@ -74,7 +74,7 @@ class PanelRadar : MainPanel
 	{
 		super.whenRenderer()
 		
-		eventView.position = SCNVector3(capsule.at.x * -1,capsule.at.y * -1,0)
+		eventView?.position = SCNVector3(capsule.at.x * -1,capsule.at.y * -1,0)
 		
 		let directionNormal = Double(Float(capsule.direction)/180) * -1
 		shipCursor.rotation = SCNVector4Make(0, 0, 1, Float(M_PI * directionNormal))
@@ -110,7 +110,7 @@ class PanelRadar : MainPanel
 		
 	}
 
-	func addTarget(event:Location)
+	func addTarget(_ event:Location)
 	{
 		if capsule.dock != nil && capsule.isDocked == false { return }
 		if capsule.isWarping == true { return }
@@ -120,7 +120,7 @@ class PanelRadar : MainPanel
 		updateTarget()
 		
 		// Check for overlapping events
-		for newEvent in eventView.childNodes {
+		for newEvent in (eventView?.childNodes)! {
 			if newEvent.position.x == event.position.x && newEvent.position.y == event.position.y && event != newEvent {
 				print("Overlapping event: \(newEvent.name!) -> \(event.position.x)")
 			}

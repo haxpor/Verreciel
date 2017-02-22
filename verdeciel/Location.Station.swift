@@ -11,7 +11,7 @@ class LocationStation : Location
 	var port:SCNPortSlot!
 	var button:SCNButton!
 	
-	init(name:String, system:Systems, at: CGPoint = CGPoint(), requirement:Item! = nil, installation:() -> Void, installationName:String, mapRequirement:Item! = nil)
+	init(name:String, system:Systems, at: CGPoint = CGPoint(), requirement:Item! = nil, installation:@escaping () -> Void, installationName:String, mapRequirement:Item! = nil)
 	{
 		self.installation = installation
 		self.requirement = requirement
@@ -42,7 +42,7 @@ class LocationStation : Location
 		port.position = SCNVector3(0,-0.2,0)
 		newPanel.addChildNode(port)
 		
-		tradeLabel = SCNLabel(text:"trade", color:grey, align:alignment.right)
+		tradeLabel = SCNLabel(text:"trade", align:alignment.right, color:grey)
 		tradeLabel.position = SCNVector3(-0.3,0,0)
 		port.addChildNode(tradeLabel)
 		
@@ -61,7 +61,7 @@ class LocationStation : Location
 		else{ tradeLabel.update(red) }
 	}
 	
-	override func touch(id: Int)
+	override func touch(_ id: Int)
 	{
 		super.touch(id)
 		if id == 1 { self.installation() ; self.onComplete() }
@@ -122,7 +122,7 @@ class StructureStation : Structure
 		super.onSight()
 		
 		SCNTransaction.begin()
-		SCNTransaction.setAnimationDuration(0.5)
+		SCNTransaction.animationDuration = 0.5
 		
 		for node in root.childNodes	{
 			node.eulerAngles.x = (degToRad(0))
@@ -136,7 +136,7 @@ class StructureStation : Structure
 		super.onUndock()
 		
 		SCNTransaction.begin()
-		SCNTransaction.setAnimationDuration(0.5)
+		SCNTransaction.animationDuration = 0.5
 		
 		for node in root.childNodes	{
 			node.eulerAngles.x = (degToRad(45))
@@ -150,7 +150,7 @@ class StructureStation : Structure
 		super.onDock()
 		
 		SCNTransaction.begin()
-		SCNTransaction.setAnimationDuration(0.5)
+		SCNTransaction.animationDuration = 0.5
 		
 		for node in root.childNodes	{
 			node.eulerAngles.x = (degToRad(45))
@@ -176,15 +176,15 @@ class StructureStation : Structure
 		super.morph()
 		
 		SCNTransaction.begin()
-		SCNTransaction.setAnimationDuration(0.5)
+		SCNTransaction.animationDuration = 0.5
 		
-		let deg1 = 22.5 * (Float(morphTime * 123) % 8) % 180
-		let deg2 = 22.5 * (Float(morphTime * 678) % 6) % 180
+		let deg1 = (22.5 * (Float(morphTime * 123).truncatingRemainder(dividingBy: 8))).truncatingRemainder(dividingBy: 180)
+		let deg2 = (22.5 * (Float(morphTime * 678).truncatingRemainder(dividingBy: 6))).truncatingRemainder(dividingBy: 180)
 		
 		for node in root.childNodes {
 			for subnode in node.childNodes	{
 				subnode.eulerAngles.z = (degToRad(deg1 - deg2))
-				subnode.position.y = (2 - ((Float(morphTime) * 0.34) % 4)) * 0.6
+				subnode.position.y = (2 - ((Float(morphTime) * 0.34).truncatingRemainder(dividingBy: 4))) * 0.6
 			}
 		}
 		

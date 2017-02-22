@@ -12,7 +12,7 @@ class SCNLabel : Empty
 	var activeScale:Float = 0.2
 	var activeAlignment:alignment!
 	var nodeOffset:Empty = Empty()
-	var color:UIColor = UIColor.whiteColor()
+	var color:UIColor = UIColor.white
 	
 	init(text:String = "",scale:Float = 0.1,align:alignment = alignment.left, color:UIColor = white)
 	{
@@ -41,7 +41,7 @@ class SCNLabel : Empty
 		}
 	}
 	
-	func addLetters(text:String,scale:Float)
+	func addLetters(_ text:String,scale:Float)
 	{
 		var letterPos:Float = 0
 		var linePos:Float = 0
@@ -62,7 +62,7 @@ class SCNLabel : Empty
 		}
 	}
 	
-	func update(text:String, force:Bool = false, color:UIColor)
+	func update(_ text:String, force:Bool = false, color:UIColor)
 	{
 		if text == activeText && color == self.color && force == false { return }
 		removeLetters()
@@ -72,7 +72,7 @@ class SCNLabel : Empty
 		adjustAlignment()
 	}
 	
-	func update(color:UIColor, force:Bool = false)
+	func update(_ color:UIColor, force:Bool = false)
 	{
 		if self.color == color { return }
 		self.color = color
@@ -81,7 +81,7 @@ class SCNLabel : Empty
 		adjustAlignment()
 	}
 	
-	func update(text:String)
+	func update(_ text:String)
 	{
 		if text == activeText { return }
 		removeLetters()
@@ -90,7 +90,7 @@ class SCNLabel : Empty
 		adjustAlignment()
 	}
 	
-	func updateScale(scale:Float)
+	func updateScale(_ scale:Float)
 	{
 		activeScale = scale
 		removeLetters()
@@ -98,7 +98,7 @@ class SCNLabel : Empty
 		adjustAlignment()		
 	}
 	
-	func updateColor(color:UIColor)
+	func updateColor(_ color:UIColor)
 	{
 		if self.color == color { return }
 		self.color = color
@@ -107,11 +107,11 @@ class SCNLabel : Empty
 		adjustAlignment()
 	}
 	
-	func letter(letter:String,scale:Float) -> Empty
+	func letter(_ letter:String,scale:Float) -> Empty
 	{		
 		let letterPivot = Empty()
 		
-		let letter = letter.lowercaseString
+		let letter = letter.lowercased()
 		
 		if letter == "a"{
 			letterPivot.addChildNode(SCNLine(vertices: [SCNVector3(x: 0, y: scale, z: 0), SCNVector3(x: 0, y: -scale, z: 0), SCNVector3(x: 0, y: scale, z: 0), SCNVector3(x: scale, y: scale, z: 0), SCNVector3(x: 0, y: 0, z: 0), SCNVector3(x: scale, y: 0, z: 0), SCNVector3(x: scale, y: scale, z: 0), SCNVector3(x: scale, y: -scale, z: 0)],color:self.color))

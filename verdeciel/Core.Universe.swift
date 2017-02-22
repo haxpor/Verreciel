@@ -193,7 +193,7 @@ class CoreUniverse : Empty
 		usul_portal.connect(usul_transit)
 	}
 
-	func locationLike(target:Location) -> Location!
+	func locationLike(_ target:Location) -> Location!
 	{
 		for location in childNodes as! [Location] {
 			if location.name == target.name && location.system == target.system { return location }
@@ -202,7 +202,7 @@ class CoreUniverse : Empty
 		return nil
 	}
 	
-	func locationWithCode(code:String) -> Location!
+	func locationWithCode(_ code:String) -> Location!
 	{
 		for location in childNodes as! [Location] {
 			if location.code == code { return location }
@@ -210,7 +210,7 @@ class CoreUniverse : Empty
 		return nil
 	}
 	
-	func closeSystem(system:Systems)
+	func closeSystem(_ system:Systems)
 	{
 		for location in childNodes as! [Location] {
 			if location.system == system {

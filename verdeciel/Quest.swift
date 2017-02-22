@@ -16,7 +16,7 @@ class Quest
 	var isCompleted:Bool = false
 	var isSkipped:Bool = false
 	
-	init(name:String, location:Location! = nil, predicate:() -> Bool, result: () -> Void )
+	init(name:String, location:Location! = nil, predicate:@escaping () -> Bool, result: @escaping () -> Void )
 	{
 		self.name = name
 		self.location = location

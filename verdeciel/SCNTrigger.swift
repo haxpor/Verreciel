@@ -23,7 +23,7 @@ class SCNTrigger : Empty
 		self.geometry?.materials.first?.diffuse.contents = clear
 	}
 	
-	override func touch(id:Int)
+	override func touch(_ id:Int)
 	{
 		if isEnabled == false { return }
 		host.touch(operation)

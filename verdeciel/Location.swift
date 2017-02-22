@@ -2,6 +2,30 @@ import UIKit
 import QuartzCore
 import SceneKit
 import Foundation
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
+
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func <= <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l <= r
+  default:
+    return !(rhs < lhs)
+  }
+}
+
 
 class Location : Event
 {
@@ -230,15 +254,15 @@ class Location : Event
 		}
 	}
 	
-	func connect(location:Location)
+	func connect(_ location:Location)
 	{
 		connection = location
-		icon.wire.update([SCNVector3(0,0,0), SCNVector3( (connection.at.x - self.at.x),(connection.at.y - self.at.y),0)], color: grey)
+		icon.wire.update(vertices: [SCNVector3(0,0,0), SCNVector3( (connection.at.x - self.at.x),(connection.at.y - self.at.y),0)], color: grey)
 	}
 
 	// MARK: Events -
 	
-	override func touch(id:Int)
+	override func touch(_ id:Int)
 	{
 		if isTargetable == false { return }
 		if thruster.isLocked == true && game.state() > 2 { return }
@@ -268,10 +292,10 @@ class Location : Event
 		
 		let angle = atan2(v2.dy, v2.dx) - atan2(v1.dy, v1.dx)
 		
-		return (360 - (radToDeg(Float(angle)) - 90)) % 360
+		return (360 - (radToDeg(Float(angle)) - 90)).truncatingRemainder(dividingBy: 360)
 	}
 	
-	func calculateAlignment(direction:Float = capsule.direction) -> Float
+	func calculateAlignment(_ direction:Float = capsule.direction) -> Float
 	{
 		var diff = max(direction, self.angle) - min(direction, self.angle)
 		if (diff > 180){ diff = 360 - diff }

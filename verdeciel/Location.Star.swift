@@ -70,7 +70,7 @@ class LocationStar : Location
 		}
 	}
 	
-	override func touch(id: Int)
+	override func touch(_ id: Int)
 	{
 		super.touch(id)
 		if id == 1 { extinguish() ; audio.playSound("click3") }
@@ -138,7 +138,7 @@ class StructureStar : Structure
 		super.onDock()
 		
 		SCNTransaction.begin()
-		SCNTransaction.setAnimationDuration(0.5)
+		SCNTransaction.animationDuration = 0.5
 		
 		var i:Float = 0
 		for node in root.childNodes {
@@ -161,7 +161,7 @@ class StructureStar : Structure
 		super.onDock()
 		
 		SCNTransaction.begin()
-		SCNTransaction.setAnimationDuration(0.5)
+		SCNTransaction.animationDuration = 0.5
 		
 		for node in root.childNodes {
 			node.position.y = 0
@@ -178,7 +178,7 @@ class StructureStar : Structure
 		root.updateChildrenColors(cyan)
 		
 		SCNTransaction.begin()
-		SCNTransaction.setAnimationDuration(0.5)
+		SCNTransaction.animationDuration = 0.5
 		
 		var i:Float = 0
 		for node in root.childNodes {

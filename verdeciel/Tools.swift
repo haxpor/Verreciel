@@ -6,24 +6,24 @@ import UIKit
 import QuartzCore
 import SceneKit
 
-func degToRad(degrees:Float) -> Float
+func degToRad(_ degrees:Float) -> Float
 {
 	return Float(degrees) / 180 * Float(M_PI)
 }
 
-func radToDeg(value:Float) -> Float
+func radToDeg(_ value:Float) -> Float
 {
 	return Float(Double(value) * 180.0 / M_PI)
 }
 
-func distanceBetweenTwoPoints(point1:CGPoint,point2:CGPoint) -> CGFloat
+func distanceBetweenTwoPoints(_ point1:CGPoint,point2:CGPoint) -> CGFloat
 {
 	let xDist:CGFloat = (point2.x - point1.x)
 	let yDist:CGFloat = (point2.y - point1.y)
 	return sqrt((xDist * xDist) + (yDist * yDist))
 }
 
-func angleBetweenTwoPoints(point1:CGPoint,point2:CGPoint,center:CGPoint) -> CGFloat
+func angleBetweenTwoPoints(_ point1:CGPoint,point2:CGPoint,center:CGPoint) -> CGFloat
 {
 	let v1 = CGVector(dx: point1.x - center.x, dy: point1.y - center.y)
 	let v2 = CGVector(dx: point2.x - center.x, dy: point2.y - center.y)
@@ -33,8 +33,8 @@ func angleBetweenTwoPoints(point1:CGPoint,point2:CGPoint,center:CGPoint) -> CGFl
 	return deg
 }
 
-func delay(seconds: NSTimeInterval, block: dispatch_block_t)
+func delay(_ seconds: TimeInterval, block: @escaping ()->())
 {
-	let time = dispatch_time(DISPATCH_TIME_NOW, Int64(seconds * Double(NSEC_PER_SEC)))
-	dispatch_after(time, dispatch_get_main_queue(), block)
+	let time = DispatchTime.now() + Double(Int64(seconds * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
+	DispatchQueue.main.asyncAfter(deadline: time, execute: block)
 }

@@ -53,7 +53,7 @@ class CorePlayer : Empty
 		print("+ Player | Start")
 	}
 	
-	func activateEvent(event:Event)
+	func activateEvent(_ event:Event)
 	{
 		self.event = event
 	}
@@ -86,23 +86,23 @@ class CorePlayer : Empty
         }
 	}
 	
-	func lookAt(position:SCNVector3 = SCNVector3(0,0,0),deg:Float)
+	func lookAt(_ position:SCNVector3 = SCNVector3(0,0,0),deg:Float)
 	{
-		let normalizedDeg = radToDeg(Float(player.eulerAngles.y)) % 360
+		let normalizedDeg = radToDeg(Float(player.eulerAngles.y)).truncatingRemainder(dividingBy: 360)
 		player.eulerAngles.y = (degToRad(normalizedDeg))
 		helmet.eulerAngles.y = (degToRad(normalizedDeg))
 		
 		player.isLocked = true
 		
 		SCNTransaction.begin()
-		SCNTransaction.setAnimationDuration(2.5)
+		SCNTransaction.animationDuration = 2.5
 		
 		player.position = position
 		player.eulerAngles.y = (degToRad(deg))
 		helmet.position = position
 		helmet.eulerAngles.y = (degToRad(deg))
 		
-		SCNTransaction.setCompletionBlock({ player.isLocked = false })
+		SCNTransaction.completionBlock = { player.isLocked = false }
 		SCNTransaction.commit()
 		
 		releaseHandle()
@@ -111,26 +111,26 @@ class CorePlayer : Empty
 	func eject()
 	{
 		SCNTransaction.begin()
-		SCNTransaction.setAnimationDuration(2)
+		SCNTransaction.animationDuration = 2
 		
 		player.position = SCNVector3(0,0,0)
 		capsule.opacity = 0
 		helmet.opacity = 0
 		
-		SCNTransaction.setCompletionBlock({
+		SCNTransaction.completionBlock = {
 		
 			SCNTransaction.begin()
-			SCNTransaction.setAnimationDuration(10)
+			SCNTransaction.animationDuration = 10
 			
 			player.position = SCNVector3(0,5,0)
 			
-			SCNTransaction.setCompletionBlock({
+			SCNTransaction.completionBlock = {
 				player.isEjected = true
 				game.save(0)
-			})
+			}
 			SCNTransaction.commit()
 			
-		})
+		}
 		SCNTransaction.commit()
 	}
 	
@@ -138,7 +138,7 @@ class CorePlayer : Empty
 	
 	var activePort:SCNPort!
 	
-	func holdPort(port:SCNPort)
+	func holdPort(_ port:SCNPort)
 	{
 		if port.host != nil && port.host.name != nil { helmet.leftHandLabel.update("\(port.host!.name!)", color: white) }
 		
@@ -147,7 +147,7 @@ class CorePlayer : Empty
 		audio.playSound("click1")
 	}
 	
-	func connectPorts(from:SCNPort,to:SCNPort)
+	func connectPorts(_ from:SCNPort,to:SCNPort)
 	{
 		helmet.leftHandLabel.update("--", color: grey)
 		
@@ -173,9 +173,9 @@ class CorePlayer : Empty
 	// MARK: Right Hand -
 
 	var activeHandle:SCNHandle!
-	var handleTimer:NSTimer!
+	var handleTimer:Timer!
 	
-	func holdHandle(handle:SCNHandle)
+	func holdHandle(_ handle:SCNHandle)
 	{
 		releaseHandle()
 		
@@ -185,12 +185,12 @@ class CorePlayer : Empty
 		activeHandle.disable()
 		
 		SCNTransaction.begin()
-		SCNTransaction.setAnimationDuration(2.5)
+		SCNTransaction.animationDuration = 2.5
 		player.position = activeHandle.destination
 		helmet.position = activeHandle.destination
 		SCNTransaction.commit()
 		
-		player.handleTimer = NSTimer.scheduledTimerWithTimeInterval(5, target: self, selector: #selector(self.releaseHandleAuto), userInfo: nil, repeats: false)
+		player.handleTimer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(self.releaseHandleAuto), userInfo: nil, repeats: false)
 	}
 	
 	func releaseHandle()
@@ -209,7 +209,7 @@ class CorePlayer : Empty
 		helmet.rightHandLabel.update("--", color: grey)
 		
 		SCNTransaction.begin()
-		SCNTransaction.setAnimationDuration(2.5)
+		SCNTransaction.animationDuration = 2.5
 		player.position = SCNVector3(0,0,0)
 		helmet.position = SCNVector3(0,0,0)
 		SCNTransaction.commit()

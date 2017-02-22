@@ -38,7 +38,7 @@ class PanelAbove : Panel
 		}
 		
 		SCNTransaction.begin()
-		SCNTransaction.setAnimationDuration(0.5)
+		SCNTransaction.animationDuration = 0.5
 		self.eulerAngles.y = degToRad(floor((radToDeg(player.eulerAngles.y)+22.5)/45) * 45)
 		SCNTransaction.commit()
 	}

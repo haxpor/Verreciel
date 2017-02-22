@@ -140,7 +140,7 @@ class PanelThruster : MainPanel
 		decals.empty()
 	}
 
-	override func touch(id:Int = 0)
+	override func touch(_ id:Int = 0)
 	{
 		if id == 0 {
 			speedDown()
@@ -509,7 +509,7 @@ class PanelThruster : MainPanel
 		if actualSpeed > 0
 		{
 			let speed:Float = actualSpeed/600
-			let angle:Float = capsule.direction % 360
+			let angle:Float = capsule.direction.truncatingRemainder(dividingBy: 360)
 			
 			let angleRad = degToRad(angle)
 			

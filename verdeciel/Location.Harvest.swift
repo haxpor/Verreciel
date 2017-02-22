@@ -18,10 +18,10 @@ class LocationHarvest : Location
 		
 		self.details = "\(self.grows.name!)"
 		
-		port = SCNPortSlot(host: self, hasDetails:true, align:.center)
+		port = SCNPortSlot(host: self, align:.center, hasDetails:true)
 		port.enable()
 		
-		generationTimer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: #selector(self.generate), userInfo: nil, repeats: true)
+		generationTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.generate), userInfo: nil, repeats: true)
 	}
 	
 	override func whenStart()
@@ -30,7 +30,7 @@ class LocationHarvest : Location
 		port.addEvent(grows)
 	}
 	
-	var generationTimer:NSTimer!
+	var generationTimer:Timer!
 	var generationCountdown:Int = 0
 	var generationRate:Int = 200
 	

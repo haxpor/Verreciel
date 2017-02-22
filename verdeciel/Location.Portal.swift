@@ -117,12 +117,12 @@ class LocationPortal : Location
 		let key = intercom.port.origin.event as! Item
 		let destination = universe.locationLike(key.location)
 		
-		destination.isKnown = true
+		destination?.isKnown = true
 		
 		keyLabel.update(key.name!, color:cyan)
-		destinationLabel.update("to \(destination.system) \(destination.name!)")
+		destinationLabel.update("to \(destination?.system) \(destination?.name!)")
 		
-		pilotPort.addEvent(destination)
+		pilotPort.addEvent(destination!)
 		pilotPort.enable()
 		thrusterPort.enable()
 		
@@ -191,7 +191,7 @@ class StructurePortal : Structure
 		root.updateChildrenColors(cyan)
 		
 		SCNTransaction.begin()
-		SCNTransaction.setAnimationDuration(1.5)
+		SCNTransaction.animationDuration = 1.5
 		
 		for node in root.childNodes {
 			node.childNodes.first!.position = SCNVector3(2,1,2)
@@ -205,7 +205,7 @@ class StructurePortal : Structure
 		root.updateChildrenColors(cyan)
 		
 		SCNTransaction.begin()
-		SCNTransaction.setAnimationDuration(0.5)
+		SCNTransaction.animationDuration = 0.5
 		
 		for node in root.childNodes {
 			node.childNodes.first!.position = SCNVector3(0,0,0)
@@ -221,7 +221,7 @@ class StructurePortal : Structure
 		root.updateChildrenColors(red)
 		
 		SCNTransaction.begin()
-		SCNTransaction.setAnimationDuration(0.5)
+		SCNTransaction.animationDuration = 0.5
 		
 		for node in root.childNodes {
 			node.childNodes.first!.position = SCNVector3(-2,0,0)

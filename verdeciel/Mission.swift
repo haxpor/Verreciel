@@ -17,7 +17,7 @@ class Mission
 	var predicate:() -> Bool! = { return nil }
 	var requirement:() -> Bool! = { return nil }
 	
-	init(id:Int,name:String, requirement:() -> Bool = { return true }, state:() -> Void = { } )
+	init(id:Int,name:String, requirement:@escaping () -> Bool = { return true }, state:@escaping () -> Void = { } )
 	{
 		self.id = id
 		self.name = name

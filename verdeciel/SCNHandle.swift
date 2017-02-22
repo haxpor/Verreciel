@@ -54,7 +54,7 @@ class SCNHandle : Empty
 		selectionLine.update(grey)
 	}
 	
-	override func touch(id:Int = 0)
+	override func touch(_ id:Int = 0)
 	{
 		player.holdHandle(self)
 		audio.playSound("click4")

@@ -6,6 +6,30 @@ import UIKit
 import QuartzCore
 import SceneKit
 import Foundation
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
+
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l > r
+  default:
+    return rhs < lhs
+  }
+}
+
 
 class CoreCapsule: Empty
 {	
@@ -110,7 +134,7 @@ class CoreCapsule: Empty
 			approachSpeed = (CGFloat(approachSpeed) * CGFloat(distanceRatio))
 			
 			var speed:Float = Float(distanceRatio)/600 ; if speed < 0.0005 { speed = 0.005 }
-			let angle:Float = Float((capsule.direction) % 360)
+			let angle:Float = Float((capsule.direction).truncatingRemainder(dividingBy: 360))
 			
 			capsule.at.x += CGFloat(speed) * CGFloat(sin(degToRad(angle)))
 			capsule.at.y += CGFloat(speed) * CGFloat(cos(degToRad(angle)))
@@ -128,7 +152,7 @@ class CoreCapsule: Empty
 				warpDown()
 			}
 			let speed:Float = Float(thruster.actualSpeed)/600
-			let angle:Float = Float((capsule.direction) % 360)
+			let angle:Float = Float((capsule.direction).truncatingRemainder(dividingBy: 360))
 			
 			let angleRad = degToRad(angle)
 			
@@ -148,7 +172,7 @@ class CoreCapsule: Empty
 		}
 	}
 	
-	func beginAtLocation(location:Location)
+	func beginAtLocation(_ location:Location)
 	{
 		at = location.at
 		dock = location
@@ -206,7 +230,7 @@ class CoreCapsule: Empty
 	var isWarping:Bool = false
 	var warp:Location!
 
-	func warp(destination:Location)
+	func warp(_ destination:Location)
 	{
 		let portal = dock as! LocationPortal
 		
@@ -245,7 +269,7 @@ class CoreCapsule: Empty
 	var isDocked:Bool = false
 	var dock:Location!
 	
-	func dock(newDock:Location)
+	func dock(_ newDock:Location)
 	{		
 		dock = newDock
 		thruster.disable()
@@ -306,7 +330,7 @@ class CoreCapsule: Empty
 	
 	// MARK: Custom -
 	
-	func teleport(location:Location)
+	func teleport(_ location:Location)
 	{
 		dock = location
 		at = location.at
@@ -317,7 +341,7 @@ class CoreCapsule: Empty
 		helmet.addPassive("Docked at \(dock.name!)")
 	}
 	
-	func isDockedAtLocation(location:Location) -> Bool
+	func isDockedAtLocation(_ location:Location) -> Bool
 	{
 		if isDocked == true && dock != nil && dock == location { return true }
 		return false

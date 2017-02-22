@@ -18,7 +18,7 @@ class SCNLine : Empty
 		
 		super.init()
 		
-		update(vertices, color: self.color)
+		update(vertices: vertices, color: self.color)
 	}
 	
 	func update(vertices:Array<SCNVector3>, color:UIColor)
@@ -39,12 +39,17 @@ class SCNLine : Empty
 		}
         
         // PrimitiveCount should be the number of lines, not the number of vertices.
-        let geoElement = SCNGeometryElement(data: NSData(bytes: indexes, length: (sizeof(Int32) * indexes.count)), primitiveType: SCNGeometryPrimitiveType.Line, primitiveCount: indexes.count / 2, bytesPerIndex: sizeof(Int32))
-		
-		self.geometry = SCNGeometry(sources: [geoSrc], elements: [geoElement])
-		self.geometry!.firstMaterial?.lightingModelName = SCNLightingModelConstant
-		self.geometry!.firstMaterial?.diffuse.contents = color
-		opacity = 1
+        withUnsafePointer(to: &indexes, {
+            let count = (MemoryLayout<Int32>.size * indexes.count)
+            $0.withMemoryRebound(to: Int8.self, capacity: count) {
+                let geoElement = SCNGeometryElement(data: Data(bytes: $0, count: count), primitiveType: SCNGeometryPrimitiveType.line, primitiveCount: indexes.count / 2, bytesPerIndex: MemoryLayout<Int32>.size)
+          
+                self.geometry = SCNGeometry(sources: [geoSrc], elements: [geoElement])
+                self.geometry!.firstMaterial?.lightingModel = SCNMaterial.LightingModel.constant
+                self.geometry!.firstMaterial?.diffuse.contents = color
+                opacity = 1
+            }
+        })
 	}
 	
 	func reset()
@@ -53,17 +58,11 @@ class SCNLine : Empty
 		opacity = 0
 	}
 	
-	func update(color:UIColor)
+	func update(_ color:UIColor)
 	{
 		if color == self.color { return }
 		self.color = color
-		update(vertices, color: color)
-	}
-	
-	func update(vertices:Array<SCNVector3>)
-	{
-		self.vertices = vertices
-		update(vertices, color: color)
+		update(vertices: vertices, color: color)
 	}
 	
 	required init(coder aDecoder: NSCoder)

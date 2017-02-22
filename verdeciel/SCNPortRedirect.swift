@@ -39,8 +39,8 @@ class SCNPortRedirect : SCNPort
 		self.connection.origin = nil
 		self.connection = nil
 		
-		stored_connection.onDisconnect()
-		stored_connection_host.onDisconnect()
+		stored_connection?.onDisconnect()
+		stored_connection_host?.onDisconnect()
 		host.onDisconnect()
 		
 		wire.disable()

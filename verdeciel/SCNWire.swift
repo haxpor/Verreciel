@@ -50,11 +50,11 @@ class SCNWire : Empty
 		vertex3 = SCNVector3(nodeB.x * 0.6,nodeB.y * 0.6,nodeB.z * 0.6)
 		vertex4 = SCNVector3(nodeB.x * 0.8,nodeB.y * 0.8,nodeB.z * 0.8)
 		
-		segment1.update( [nodeA, vertex1], color: white)
-		segment2.update( [vertex1, vertex2], color: red)
-		segment3.update( [vertex2, vertex3], color: red)
-		segment4.update( [vertex3, vertex4], color: red)
-		segment5.update( [vertex4, nodeB], color: red)
+		segment1.update( vertices: [nodeA, vertex1], color: white)
+		segment2.update( vertices: [vertex1, vertex2], color: red)
+		segment3.update( vertices: [vertex2, vertex3], color: red)
+		segment4.update( vertices: [vertex3, vertex4], color: red)
+		segment5.update( vertices: [vertex4, nodeB], color: red)
 	}
 	
 	override func whenRenderer()
@@ -74,14 +74,14 @@ class SCNWire : Empty
 		vertex3.y += sin((game.time + vertex3.x + vertex3.y + vertex3.z)/20) * 0.08
 		vertex4.y += sin((game.time + vertex4.x + vertex4.y + vertex4.z)/20) * 0.05
 		
-		segment1.update( [nodeA, vertex1], color: cyan)
-		segment2.update( [vertex1, vertex2], color: white)
-		segment3.update( [vertex2, vertex3], color: white)
-		segment4.update( [vertex3, vertex4], color: white)
-		segment5.update( [vertex4, nodeB], color: red)
+		segment1.update( vertices: [nodeA, vertex1], color: cyan)
+		segment2.update( vertices: [vertex1, vertex2], color: white)
+		segment3.update( vertices: [vertex2, vertex3], color: white)
+		segment4.update( vertices: [vertex3, vertex4], color: white)
+		segment5.update( vertices: [vertex4, nodeB], color: red)
 	}
 	
-	func update(nodeA: SCNVector3 = SCNVector3(), nodeB: SCNVector3 = SCNVector3())
+	func update(_ nodeA: SCNVector3 = SCNVector3(), nodeB: SCNVector3 = SCNVector3())
 	{
 		self.nodeA = nodeA
 		self.nodeB = nodeB
@@ -91,11 +91,11 @@ class SCNWire : Empty
 		vertex3 = SCNVector3(nodeB.x * 0.6,nodeB.y * 0.6,nodeB.z * 0.6)
 		vertex4 = SCNVector3(nodeB.x * 0.8,nodeB.y * 0.8,nodeB.z * 0.8)
 		
-		segment1.update( [nodeA, vertex1], color: white)
-		segment2.update( [vertex1, vertex2], color: red)
-		segment3.update( [vertex2, vertex3], color: red)
-		segment4.update( [vertex3, vertex4], color: red)
-		segment5.update( [vertex4, nodeB], color: red)
+		segment1.update( vertices: [nodeA, vertex1], color: white)
+		segment2.update( vertices: [vertex1, vertex2], color: red)
+		segment3.update( vertices: [vertex2, vertex3], color: red)
+		segment4.update( vertices: [vertex3, vertex4], color: red)
+		segment5.update( vertices: [vertex4, nodeB], color: red)
 	}
 	
 	func enable()
@@ -125,7 +125,7 @@ class SCNWire : Empty
 		return true
 	}
 	
-	override func color(color: UIColor)
+	override func color(_ color: UIColor)
 	{
 		
 	}

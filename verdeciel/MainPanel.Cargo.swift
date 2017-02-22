@@ -56,7 +56,7 @@ class PanelCargo : MainPanel
 		detailsLabel.update("Empty", color: grey)
 	}
 	
-	func contains(event:Event) -> Bool
+	func contains(_ event:Event) -> Bool
 	{
 		for item in cargohold.content {
 			if item == event { return true }
@@ -64,7 +64,7 @@ class PanelCargo : MainPanel
 		return false
 	}
 	
-	func containsLike(target:Item) -> Bool
+	func containsLike(_ target:Item) -> Bool
 	{
 		for item in cargohold.content {
 			if item.name == target.name && item.type == target.type { return true }
@@ -72,7 +72,7 @@ class PanelCargo : MainPanel
 		return false
 	}
 	
-	func containsCount(count:Int,target:Item) -> Bool
+	func containsCount(_ count:Int,target:Item) -> Bool
 	{
 		var count_actual = 0
 		for item in cargohold.content {
@@ -84,7 +84,7 @@ class PanelCargo : MainPanel
 	
 	// MARK: Add - 
 	
-	func addItems(items:Array<Item>)
+	func addItems(_ items:Array<Item>)
 	{
 		for item in items {
 			addItem(item)
@@ -92,13 +92,13 @@ class PanelCargo : MainPanel
 		refresh()
 	}
 	
-	func addItem(item:Item)
+	func addItem(_ item:Item)
 	{
 		self.cargohold.content.append(item)
 		self.refresh()
 	}
 
-	func removeItem(target:Item)
+	func removeItem(_ target:Item)
 	{
 		if cargohold.content.count == 1 { line1.position.x = 0.25 }
 		if cargohold.content.count == 2 { line2.position.x = 0.25 }
@@ -108,7 +108,7 @@ class PanelCargo : MainPanel
 		if cargohold.content.count == 6 { line6.position.x = 0.25 }
 		
 		SCNTransaction.begin()
-		SCNTransaction.setAnimationDuration(0.5)
+		SCNTransaction.animationDuration = 0.5
 		
 		if cargohold.content.count == 1 { line1.position.x = 0 }
 		if cargohold.content.count == 2 { line2.position.x = 0 }
@@ -117,11 +117,11 @@ class PanelCargo : MainPanel
 		if cargohold.content.count == 5 { line5.position.x = 0 }
 		if cargohold.content.count == 6 { line6.position.x = 0 }
 		
-		SCNTransaction.setCompletionBlock({ self.removeTransfer(target) })
+		SCNTransaction.completionBlock = { self.removeTransfer(target) }
 		SCNTransaction.commit()
 	}
 	
-	func removeTransfer(target:Item)
+	func removeTransfer(_ target:Item)
 	{
 		let history = cargohold.content
 		cargohold.content = []
@@ -133,7 +133,7 @@ class PanelCargo : MainPanel
 		refresh()
 	}
 	
-	override func touch(id:Int = 0)
+	override func touch(_ id:Int = 0)
 	{
 		refresh()
 		
@@ -200,13 +200,13 @@ class PanelCargo : MainPanel
 	// MARK: Upload -
 	
 	var upload:Event!
-	var uploadTimer:NSTimer!
+	var uploadTimer:Timer!
 	var uploadPercentage:Float = 0
 	
-	func upload(item:Event)
+	func upload(_ item:Event)
 	{
 		upload = item
-		uploadTimer = NSTimer.scheduledTimerWithTimeInterval(0.05, target: self, selector: #selector(self.uploadProgress), userInfo: nil, repeats: true)
+		uploadTimer = Timer.scheduledTimer(timeInterval: 0.05, target: self, selector: #selector(self.uploadProgress), userInfo: nil, repeats: true)
 	}
 	
 	func uploadProgress()
@@ -232,7 +232,7 @@ class PanelCargo : MainPanel
 		if cargohold.content.count == 5 { line6.position.x = -0.25 }
 		
 		SCNTransaction.begin()
-		SCNTransaction.setAnimationDuration(0.5)
+		SCNTransaction.animationDuration = 0.5
 		
 		if cargohold.content.count == 0 { line1.position.x = 0 }
 		if cargohold.content.count == 1 { line2.position.x = 0 }
@@ -241,7 +241,7 @@ class PanelCargo : MainPanel
 		if cargohold.content.count == 4 { line5.position.x = 0 }
 		if cargohold.content.count == 5 { line6.position.x = 0 }
 		
-		SCNTransaction.setCompletionBlock({ self.uploadTransfer() })
+		SCNTransaction.completionBlock = { self.uploadTransfer() }
 		SCNTransaction.commit()
 	}
 	
@@ -250,7 +250,7 @@ class PanelCargo : MainPanel
 		if (self.port.origin != nil) {
 			let origin = self.port.origin.host
 			self.cargohold.content.append(self.port.syphon())
-			origin.onUploadComplete()
+			origin?.onUploadComplete()
 			self.onUploadComplete()
 		}
 		self.uploadTimer.invalidate()

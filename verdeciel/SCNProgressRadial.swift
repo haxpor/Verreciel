@@ -27,7 +27,7 @@ class SCNProgressRadial : Empty
 		}
 	}
 	
-	func update(percentage:Float)
+	func update(_ percentage:Float)
 	{
 		let reach = (percentage/100) * linesCount
 		

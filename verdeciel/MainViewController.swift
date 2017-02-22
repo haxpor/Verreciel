@@ -19,11 +19,11 @@ class MainViewController: UIViewController, SCNSceneRendererDelegate
 		
 		sceneView = self.view as! SCNView
 		sceneView.scene = scene
-		sceneView.backgroundColor = UIColor.blackColor()
-		sceneView.antialiasingMode = SCNAntialiasingMode.None
+		sceneView.backgroundColor = UIColor.black
+		sceneView.antialiasingMode = SCNAntialiasingMode.none
 		sceneView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.handleTap(_:))))
 		sceneView.preferredFramesPerSecond = 30
-		sceneView.playing = true
+		sceneView.isPlaying = true
 		sceneView.showsStatistics = false
 		sceneView.delegate = self
 		
@@ -54,24 +54,24 @@ class MainViewController: UIViewController, SCNSceneRendererDelegate
 		items.whenStart()
 	}
 	
-	override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?)
+	override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?)
 	{
 		if player.isLocked == true { return }
 		
 		for touch: AnyObject in touches {
-			touchOrigin = touch.locationInView(self.view)
+			touchOrigin = touch.location(in: self.view)
 		}
 		
 		player.canAlign = false
 		helmet.canAlign = false
 	}
 	
-	override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?)
+	override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?)
 	{
 		if player.isLocked == true { return }
 		
 		for touch: AnyObject in touches {
-			touchPosition = touch.locationInView(self.view)
+			touchPosition = touch.location(in: self.view)
 		}
 		
 		let dragX = Float(touchPosition.x - touchOrigin.x)
@@ -85,7 +85,7 @@ class MainViewController: UIViewController, SCNSceneRendererDelegate
 		helmet.updatePort()
 	}
 	
-	override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?)
+	override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?)
 	{
 		if player.isLocked == true { return }
 		
@@ -94,9 +94,9 @@ class MainViewController: UIViewController, SCNSceneRendererDelegate
 		helmet.updatePort()
 	}
 	
-	func handleTap(gestureRecognize: UIGestureRecognizer)
+	func handleTap(_ gestureRecognize: UIGestureRecognizer)
 	{
-		let p = gestureRecognize.locationInView(sceneView)
+		let p = gestureRecognize.location(in: sceneView)
 		
 		let hitResults = sceneView.hitTest(p, options: nil)
 		
@@ -107,7 +107,7 @@ class MainViewController: UIViewController, SCNSceneRendererDelegate
 		}
 	}
 	
-	func renderer(renderer: SCNSceneRenderer, updateAtTime time: NSTimeInterval)
+	func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval)
 	{
 		glLineWidth(1)
 		
@@ -120,7 +120,7 @@ class MainViewController: UIViewController, SCNSceneRendererDelegate
 		space.whenRenderer()
 	}
 	
-	override func prefersStatusBarHidden() -> Bool
+	override var prefersStatusBarHidden : Bool
 	{
 		return true
 	}

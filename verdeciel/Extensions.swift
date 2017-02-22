@@ -29,12 +29,12 @@ extension Float
 		return fabsf(self)
 	}
 	
-	func clamp (min: Float, _ max: Float) -> Float
+	func clamp (_ min: Float, _ max: Float) -> Float
 	{
 		return Swift.max(min, Swift.min(max, self))
 	}
 	
-	func random(min: Float = 0, max: Float) -> Float
+	func random(_ min: Float = 0, max: Float) -> Float
 	{
 		let diff = max - min;
 		let rand = Float(arc4random() % (UInt32(RAND_MAX) + 1))

@@ -17,7 +17,7 @@ class LocationSatellite : Location
 		self.mapRequirement = mapRequirement
 		self.message = message
 		
-		port = SCNPortSlot(host: self, hasDetails:true, align:.center)
+		port = SCNPortSlot(host: self, align:.center, hasDetails:true)
 		port.position = SCNVector3(0,-0.4,0)
 		port.addEvent(item)
 		port.enable()
@@ -127,7 +127,7 @@ class StructureSatellite : Structure
 		super.onSight()
 		
 		SCNTransaction.begin()
-		SCNTransaction.setAnimationDuration(0.5)
+		SCNTransaction.animationDuration = 0.5
 		
 		for node in root.childNodes {
 			for subnode in node.childNodes {
@@ -143,7 +143,7 @@ class StructureSatellite : Structure
 		super.onUndock()
 		
 		SCNTransaction.begin()
-		SCNTransaction.setAnimationDuration(0.5)
+		SCNTransaction.animationDuration = 0.5
 		
 		for node in root.childNodes {
 			for subnode in node.childNodes {
@@ -159,7 +159,7 @@ class StructureSatellite : Structure
 		super.onDock()
 		
 		SCNTransaction.begin()
-		SCNTransaction.setAnimationDuration(0.5)
+		SCNTransaction.animationDuration = 0.5
 		
 		for node in root.childNodes {
 			for subnode in node.childNodes {

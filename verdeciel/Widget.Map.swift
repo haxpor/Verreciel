@@ -21,7 +21,7 @@ class WidgetMap : Widget
 		label.update(name!)
 	}
 	
-	func hasMap(map:Item) -> Bool
+	func hasMap(_ map:Item) -> Bool
 	{
 		if port.hasEvent() == false { return false }
 		if port.event == map { return true }

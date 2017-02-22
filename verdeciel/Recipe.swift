@@ -18,7 +18,7 @@ class Recipe
 		self.result = result
 	}
 	
-	func isValid(inputs:Array<Event>) -> Bool
+	func isValid(_ inputs:Array<Event>) -> Bool
 	{
 		// Check if ingredients are all inputs
 		for ingredient in ingredients {

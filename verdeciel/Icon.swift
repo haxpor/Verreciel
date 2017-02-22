@@ -10,7 +10,7 @@ class Icon : Empty
 {
 	var host:Location!
 	
-	var color:UIColor = UIColor.purpleColor()
+	var color:UIColor = UIColor.purple
 	var size:Float = 0.1
 	
 	var label = SCNLabel()
@@ -37,7 +37,7 @@ class Icon : Empty
 		addChildNode(wire)
 	}
 	
-	func addHost(host:Location)
+	func addHost(_ host:Location)
 	{
 		self.host = host
 		

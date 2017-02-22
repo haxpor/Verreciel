@@ -36,7 +36,7 @@ class CoreSpace: Empty
 	var currentSpaceColor:Array<CGFloat> = [0,0,0]
 	var stars_color:UIColor = white
 	
-	func onSystemEnter(system:Systems)
+	func onSystemEnter(_ system:Systems)
 	{
 		capsule.system = system
 		
@@ -58,13 +58,13 @@ class CoreSpace: Empty
 			targetSpaceColor = [0,0,0]
 		}
 		else if capsule.closestStar().isComplete == true {
-			targetSpaceColor = [44/255,73/255,65/255]
+			targetSpaceColor = [CGFloat(44/255),CGFloat(73/255),CGFloat(65/255)]
 		}
 	}
 	
 	// Instances
 	
-	func startInstance(location:Location)
+	func startInstance(_ location:Location)
 	{
 		structuresRoot.addChildNode(location.structure)
 	}
@@ -100,7 +100,7 @@ class CoreSpace: Empty
 		starsRoot.rotation = SCNVector4Make(0, 1, 0, (degToRad(capsule.direction)))
 	}
 	
-	func star(position:SCNVector3) -> SCNLine
+	func star(_ position:SCNVector3) -> SCNLine
 	{
 		return SCNLine(vertices: [position, SCNVector3(position.x,position.y + 1,position.z)], color: stars_color)
 	}
@@ -151,13 +151,13 @@ class StarCluster : Empty
 			starSpeed = 0.15
 		}
 		
-		mesh.update([
-			starsPositions[0],SCNVector3(starsPositions[0].x,starSpeed + 0.1,starsPositions[0].z),
-			starsPositions[1],SCNVector3(starsPositions[1].x,starSpeed + 0.1,starsPositions[1].z),
-			starsPositions[2],SCNVector3(starsPositions[2].x,starSpeed + 0.1,starsPositions[2].z),
-			starsPositions[3],SCNVector3(starsPositions[3].x,starSpeed + 0.1,starsPositions[3].z),
-			starsPositions[4],SCNVector3(starsPositions[4].x,starSpeed + 0.1,starsPositions[4].z)
-		])
+        mesh.update(vertices: [
+            starsPositions[0],SCNVector3(starsPositions[0].x,starSpeed + 0.1,starsPositions[0].z),
+            starsPositions[1],SCNVector3(starsPositions[1].x,starSpeed + 0.1,starsPositions[1].z),
+            starsPositions[2],SCNVector3(starsPositions[2].x,starSpeed + 0.1,starsPositions[2].z),
+            starsPositions[3],SCNVector3(starsPositions[3].x,starSpeed + 0.1,starsPositions[3].z),
+            starsPositions[4],SCNVector3(starsPositions[4].x,starSpeed + 0.1,starsPositions[4].z)
+            ], color: mesh.color)
 		
 		position = SCNVector3(x: 0, y: position.y - starSpeed, z: 0)
 		

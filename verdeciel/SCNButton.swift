@@ -31,7 +31,7 @@ class SCNButton : Empty
 		addChildNode(label)
 	}
 
-	func enable(newText:String, outline:UIColor = cyan)
+	func enable(_ newText:String, outline:UIColor = cyan)
 	{
 		self.text = newText
 		label.update(self.text, color:white)
@@ -39,7 +39,7 @@ class SCNButton : Empty
 		trigger.updateChildrenColors(outline)
 	}
 	
-	func disable(newText:String, outline:UIColor = red)
+	func disable(_ newText:String, outline:UIColor = red)
 	{
 		self.text = newText
 		label.update(self.text, color:grey)
@@ -47,7 +47,7 @@ class SCNButton : Empty
 		trigger.disable()
 	}
 	
-	override func touch(id:Int = 0)
+	override func touch(_ id:Int = 0)
 	{
 		host.touch(self.operation)
 		audio.playSound("click3")

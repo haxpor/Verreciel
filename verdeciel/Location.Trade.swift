@@ -158,7 +158,7 @@ class StructureTrade : Structure
 		super.onSight()
 		
 		SCNTransaction.begin()
-		SCNTransaction.setAnimationDuration(0.5)
+		SCNTransaction.animationDuration = 0.5
 		
 		var i = 0
 		for node in root.childNodes	{
@@ -174,7 +174,7 @@ class StructureTrade : Structure
 		super.onUndock()
 		
 		SCNTransaction.begin()
-		SCNTransaction.setAnimationDuration(0.5)
+		SCNTransaction.animationDuration = 0.5
 		
 		var i = 0
 		for node in root.childNodes	{
@@ -190,7 +190,7 @@ class StructureTrade : Structure
 		super.onDock()
 		
 		SCNTransaction.begin()
-		SCNTransaction.setAnimationDuration(0.5)
+		SCNTransaction.animationDuration = 0.5
 		
 		for node in root.childNodes	{
 			node.eulerAngles.y = 0

@@ -53,7 +53,7 @@ class SCNPort : Empty
 	
 	// MARK: Touch -
 
-	override func touch(id:Int = 0)
+	override func touch(_ id:Int = 0)
 	{
 		if isEnabled == false { return }
 		
@@ -133,13 +133,13 @@ class SCNPort : Empty
 		trigger.disable()
 	}
 	
-	func addEvent(event:Event)
+	func addEvent(_ event:Event)
 	{
 		self.event = event
 		update()
 	}
 	
-	func addRequirement(event:Event)
+	func addRequirement(_ event:Event)
 	{
 		self.requirement = event
 	}
@@ -149,7 +149,7 @@ class SCNPort : Empty
 		self.event = nil
 	}
 	
-	func connect(port:SCNPort)
+	func connect(_ port:SCNPort)
 	{
 		if port.isEnabled == false { return }
 		if port.origin != nil {  return }
@@ -159,7 +159,7 @@ class SCNPort : Empty
 		connection = port
 		connection.origin = self
 		
-		wire.update(SCNVector3(0, 0, 0), nodeB: convertPosition(SCNVector3(0, 0, 0), fromNode: port))
+		wire.update(SCNVector3(0, 0, 0), nodeB: convertPosition(SCNVector3(0, 0, 0), from: port))
 		
 		wire.enable()
 		
@@ -180,8 +180,8 @@ class SCNPort : Empty
 		connection.onDisconnect()
 		self.connection = nil
 		
-		targetOrigin.onDisconnect()
-		targetOrigin.update()
+		targetOrigin?.onDisconnect()
+		targetOrigin?.update()
 		
 		self.onDisconnect()
 		self.host.onDisconnect()
@@ -200,10 +200,10 @@ class SCNPort : Empty
 		let stored_origin = origin
 		let stored_event = origin.event as! Item
 		
-		stored_origin.removeEvent()
-		stored_origin.host.update()
-		stored_origin.update()
-		stored_origin.disconnect()
+		stored_origin?.removeEvent()
+		stored_origin?.host.update()
+		stored_origin?.update()
+		stored_origin?.disconnect()
 		
 		return stored_event
 	}
@@ -212,7 +212,7 @@ class SCNPort : Empty
 	
 	// MARK: Checks -
 	
-	func hasEvent(target:Event) -> Bool
+	func hasEvent(_ target:Event) -> Bool
 	{
 		if event == nil { return false }
 		if event.name == target.name { return true }
@@ -232,7 +232,7 @@ class SCNPort : Empty
 		return false
 	}
 	
-	func hasItemOfType(target:ItemTypes) -> Bool
+	func hasItemOfType(_ target:ItemTypes) -> Bool
 	{
 		if event == nil { return false }
 		if (event is Item) == false { return false }
@@ -240,11 +240,11 @@ class SCNPort : Empty
 		return false
 	}
 	
-	func hasItemLike(target:Item) -> Bool
+	func hasItemLike(_ target:Item) -> Bool
 	{
 		if event == nil { return false }
 		if (event is Item) == false { return false }
-		if (event as! Item).name == target { return true }
+		if (event as! Item).name! == target.name { return true }
 		return false
 	}
 	
@@ -254,7 +254,7 @@ class SCNPort : Empty
 		return false
 	}
 	
-	func isReceivingFromPanel(panel:Panel) -> Bool
+	func isReceivingFromPanel(_ panel:Panel) -> Bool
 	{
 		if origin == nil { return false }
 		if (origin.host is Panel) == false { return false }
@@ -262,13 +262,13 @@ class SCNPort : Empty
 		return false
 	}
 	
-	func isReceiving(event:Event!) -> Bool
+	func isReceiving(_ event:Event!) -> Bool
 	{
 		if origin != nil && origin.event != nil && origin.event == event { return true }
 		return false
 	}
 	
-	func isReceivingItem(item:Item!) -> Bool
+	func isReceivingItem(_ item:Item!) -> Bool
 	{
 		if origin == nil { return false }
 		if origin.event == nil { return false }
@@ -277,7 +277,7 @@ class SCNPort : Empty
 		return false
 	}
 	
-	func isReceivingItemLike(target:Item!) -> Bool
+	func isReceivingItemLike(_ target:Item!) -> Bool
 	{
 		if origin == nil { return false }
 		if origin.event == nil { return false }
@@ -286,7 +286,7 @@ class SCNPort : Empty
 		return false
 	}
 	
-	func isReceivingItemOfType(type:ItemTypes) -> Bool
+	func isReceivingItemOfType(_ type:ItemTypes) -> Bool
 	{
 		if origin == nil { return false }
 		if origin.event == nil { return false }
@@ -332,7 +332,7 @@ class SCNPort : Empty
 		return true
 	}
 	
-	func isConnectedToPanel(panel:Panel) -> Bool
+	func isConnectedToPanel(_ panel:Panel) -> Bool
 	{
 		if connection == nil { return false }
 		if (connection.host is Panel) && (connection.host as! Panel) == panel { return true }

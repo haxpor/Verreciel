@@ -16,7 +16,7 @@ class Empty : SCNNode
 		super.init()
 	}
 	
-	func touch(id:Int = 0)
+	func touch(_ id:Int = 0)
 	{
 	}
 	
@@ -33,7 +33,7 @@ class Empty : SCNNode
 	
 	func blink()
 	{
-		if game.time % 3 == 0 { opacity = 1 }
+		if game.time.truncatingRemainder(dividingBy: 3) == 0 { opacity = 1 }
 		else { opacity = 0 }
 	}
 	
@@ -47,7 +47,7 @@ class Empty : SCNNode
 		opacity = 0
 	}
 	
-	func updateChildrenColors(color:UIColor)
+	func updateChildrenColors(_ color:UIColor)
 	{
 		for node in self.childNodes as! [Empty] {
 			node.color(color)
@@ -55,7 +55,7 @@ class Empty : SCNNode
 		}
 	}
 	
-	func color(color:UIColor)
+	func color(_ color:UIColor)
 	{
 		if geometry == nil { return }
 		if (self is SCNLine) == false { return }

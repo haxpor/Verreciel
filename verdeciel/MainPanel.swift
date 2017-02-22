@@ -74,7 +74,7 @@ class MainPanel : Panel
 	
 	var installNode:Empty = Empty()
 	var installProgressBar = SCNProgressBar(width: 1)
-	var installLabel = SCNLabel(text:"install", color:grey, align:.center)
+	var installLabel = SCNLabel(text:"install", align:.center, color:grey)
 	
 	override func onInstallationBegin()
 	{
@@ -112,7 +112,7 @@ class MainPanel : Panel
 		decals.hide()
 		
 		SCNTransaction.begin()
-		SCNTransaction.setAnimationDuration(0.7)
+		SCNTransaction.animationDuration = 0.7
 		mainNode.position = SCNVector3(0,0,0)
 		mainNode.show()
 		decals.position = SCNVector3(0,0,0)

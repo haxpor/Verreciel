@@ -541,21 +541,21 @@ class MissionCollection
 	
 	// MARK: Tools -
 	
-	func setToInstalled(panels:Array<Panel>)
+	func setToInstalled(_ panels:Array<Panel>)
 	{
 		for panel in panels {
 			panel.onInstallationComplete()
 		}
 	}
 	
-	func setToKnown(locations:Array<Location>)
+	func setToKnown(_ locations:Array<Location>)
 	{
 		for location in locations {
 			location.isKnown = true
 		}
 	}
 	
-	func setToCompleted(locations:Array<Location>)
+	func setToCompleted(_ locations:Array<Location>)
 	{
 		for location in locations {
 			if location.isComplete == false {

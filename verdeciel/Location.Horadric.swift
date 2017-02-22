@@ -129,10 +129,10 @@ class LocationHoradric : Location
 	// MARK: Combinatrix
 	
 	var combinationRecipe:Recipe!
-	var combinationTimer:NSTimer!
+	var combinationTimer:Timer!
 	var combinationPercentage:CGFloat = 0
 	
-	func combine(recipe:Recipe)
+	func combine(_ recipe:Recipe)
 	{
 		inPort1.disable()
 		inPort2.disable()
@@ -257,7 +257,7 @@ class StructureHoradric : Structure
 		super.onUndock()
 		
 		SCNTransaction.begin()
-		SCNTransaction.setAnimationDuration(3)
+		SCNTransaction.animationDuration = 3
 		
 		root.childNodes[0].eulerAngles.y = (degToRad(0))
 		root.childNodes[1].eulerAngles.y = (degToRad(0))
@@ -270,7 +270,7 @@ class StructureHoradric : Structure
 		
 		eulerAngles.y = (degToRad(0))
 		
-		SCNTransaction.setCompletionBlock({ })
+		SCNTransaction.completionBlock = { }
 		SCNTransaction.commit()
 	}
 	
@@ -279,7 +279,7 @@ class StructureHoradric : Structure
 		super.onDock()
 		
 		SCNTransaction.begin()
-		SCNTransaction.setAnimationDuration(3)
+		SCNTransaction.animationDuration = 3
 		
 		root.childNodes[0].eulerAngles.y += (degToRad(22.5))
 		root.childNodes[1].eulerAngles.y -= (degToRad(22.5))
@@ -292,7 +292,7 @@ class StructureHoradric : Structure
 		
 		eulerAngles.y += (degToRad(90))
 		
-		SCNTransaction.setCompletionBlock({ })
+		SCNTransaction.completionBlock = { }
 		SCNTransaction.commit()
 	}
 	

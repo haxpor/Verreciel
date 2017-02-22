@@ -54,7 +54,7 @@ var settings = Settings()
 
 let true_black = UIColor(white: 0, alpha: 1)
 let true_grey = UIColor(white: 0.5, alpha: 1)
-let true_red = UIColor.redColor()
+let true_red = UIColor.red
 let true_cyan = UIColor(red: 0.44, green: 0.87, blue: 0.76, alpha: 1)
 let true_white = UIColor(white: 1, alpha: 1)
 
